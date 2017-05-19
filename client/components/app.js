@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Login from ('./login.js');
+import Login from './login.js';
 
 class App extends Component {
   constructor(props) {
@@ -32,15 +32,16 @@ class App extends Component {
       });
   }
   
-  componentDidMount() {
-    axios.post()
-  }
+  // componentDidMount() {
+  //   axios.post()
+  // }
 
   render() {
-
+  
     if (this.state[0] === true) {
       return(
         <div>
+        <h1>This is working!!!</h1>
           <Login handleSignUp={this.handleSignUp} handleChange={this.handleChange} handleLoginSubmit={this.handleLoginSubmit} />
         </div>
       )
@@ -50,3 +51,6 @@ class App extends Component {
   }
 
 }
+
+
+module.exports = App;
