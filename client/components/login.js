@@ -9,10 +9,11 @@ class Login extends Component {
     <div>
       <form onSubmit={this.props.handleLoginSubmit}>
         <input type="text" name="username" value={this.props.username} onChange={this.props.handleChange} />
-        <input type="text" name="password" value={this.props.password} onChange={this.props.handleChange} />
+        <input type="password" name="password" value={this.props.password} onChange={this.props.handleChange} />
+        <input type="submit" value="login"/>
       </form>
       <p>Don't have an account?</p> 
-      <button onClick={this.props.handleSignUp}/>
+      <button value="signup" onClick={this.props.handleSignUp}>fjdlasjfhlas</button>
     </div>
     )
   }

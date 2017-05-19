@@ -26,6 +26,7 @@ class App extends Component {
   }
 
   handleLoginSubmit() {
+    console.log('inside handleLoginSubmit')
     axios.post('/login', { username: this.state.username, password: this.state.password })
       .then(response => {
         console.log(response.data);
