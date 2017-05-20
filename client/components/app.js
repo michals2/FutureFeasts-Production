@@ -94,7 +94,7 @@ class App extends Component {
     } else if (this.state[3] === true) {
       return (
         <div>
-          <Profile />
+          <Profile username={this.state.username}/>
         </div>
       )
     }

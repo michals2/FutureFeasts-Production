@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Recipe from './recipe.js';
+import SavedRecipe from './savedRecipe.js'
 //whatever child components we need
 
 class Day extends Component {
@@ -20,10 +21,11 @@ class Day extends Component {
   }
 
   componentDidMount() {
+    console.log('in component did mount')
     axios.get(`day/${this.state.day}/${this.state.username}`)
       .then((response) => {
-        //console.log(response);
-        this.setState({savedRecipes: response});
+        console.log(response.data);
+        this.setState({savedRecipes: response.data});
       });
   }
 
