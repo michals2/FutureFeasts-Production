@@ -3,9 +3,23 @@ import axios from 'axios';
 
 
 class Recipe extends Component {
+  constructor(props) {
+    super(props)
+    this.saveToDay = this.saveToDay.bind(this);
+    this.handleDropDownChange = this.handleDropDownChange.bind(this);
+    this.state = {
+      day: "",
+    }
+  }
+
+  handleDropDownChange(e) {
+    this.setState({day: e.target.value})
+  }
+
 
   saveToDay(e) {
-    axios.post('/recipeDisplay', { day: e.target.value, //TEST THIS!!!
+    e.preventDefault();
+    axios.post('/recipeDisplay', { day: this.state.day, //TEST THIS!!!
                                    username: this.props.username, //USERNAME MUST BE PASSED DOWN FROM PARENT
                                    recipe: this.props.recipedata
                                   })
@@ -16,12 +30,14 @@ class Recipe extends Component {
   }
 
   render() {
+    console.log(this.state)
     //ingredientLines is an array so wont display properly
     return (
       <div>
 
         <form onSubmit={this.saveToDay}>
-          <select name="days">
+          <select name="days" onChange={this.handleDropDownChange}>
+            <option value="Select Day">Select Day</option>
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
             <option value="Wednesday">Wednesday</option>
