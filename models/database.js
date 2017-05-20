@@ -2,7 +2,8 @@ const pg = require('pg');
 
 const db = {};
 
-const uri = 'postgres://@localhost/futuremeals';//may or may not need the @
+
+const uri = 'postgres://@localhost/futuremeals';
 
 
 pg.connect(uri, (error, db_) => {
