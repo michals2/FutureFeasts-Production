@@ -17,10 +17,12 @@ class RecipeDisplay extends Component {
 
 
 handleRecipeChange(e) {
+    e.preventDefault();
     this.setState({ [e.target.name]: e.target.value })
   }
 
-handleSearchSubmit() {
+handleSearchSubmit(e) {
+    e.preventDefault();
     let base = 'https://api.edamam.com/search?';
     let q = `q=${this.state.q}`;
     let idAndKey = `&app_id=9c91d5f4&app_key=6f47ee6858565edebe96788f8743461a`;
@@ -29,19 +31,20 @@ handleSearchSubmit() {
     let url = base+q+idAndKey+range;
     axios.get(url)
     .then( (response) => {
-        console.log(response);
+        console.log('RESPONNSEEE',response.data.hits);
         //response.hits is an array of 5 recipe objects... or at least should be.. test?
-        this.setState({recipes: response.hits});
+        this.setState({recipes: response.data.hits});
     })
 }
 
+
+
   render() {
-
-    let recipes = this.state.recipes.map(curr => {
-        <Recipe recipedata={curr} username={this.props.username}/>
+    console.log('RRRRR', this.state.recipes)
+    let recipes = this.state.recipes.map((curr,i) => {
+        return <Recipe recipedata={curr} username={this.props.username} key={i}/>
     })
-
-    console.log(this.state.recipes)
+    console.log('WWWEEEE', recipes)
 
     return (
       <div>
@@ -49,8 +52,8 @@ handleSearchSubmit() {
           <input placeholder="Search" type="text" name="q" value={this.state.q} onChange={this.handleRecipeChange} />
           <input type="submit" value="submit" />
           <button>Profile</button>
-          {recipes}
         </form>
+        {recipes}
       </div>
     )
   }

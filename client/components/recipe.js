@@ -9,6 +9,7 @@ class Recipe extends Component {
 
     return (
       <div>
+        <h1>WE ARE IN HERE AT RECIPE</h1>
         <img src={this.props.recipedata.recipe.image}/>
         <p>{this.props.recipedata.recipe.label}</p>
         <p>{this.props.recipedata.recipe.url}</p>
