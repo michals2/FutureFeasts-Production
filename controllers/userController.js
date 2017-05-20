@@ -1,49 +1,48 @@
 const db = require('../models/database');
 
 const userController = {};
-//require user model here later 
+// require user model here later
 
+//POST REQUEST FROM LOGIN:
+//verify that username enters username and password
+//verify that username exists in users table
+//verify that password matches
 userController.verifyUser = (req, res, next) => {
-    //get body from req
-    //check in database for username
-    //verify that password matches
     let username = req.body.username;
     let password = req.body.password;
-    if(!username || !password){
-        res.send('Please, enter username AND password');
-    }
+    if (!username || !password) res.send('Please, enter username AND password');
     else {
-        db.conn.query(`SELECT username, password FROM users WHERE username = '${username}';`, (error, result) =>{
-            console.log(result);
-            if(error) res.send(error);
-            else if (!result.rows.length) res.status(400).send('no username found');
-            else {
-                if (password === result.rows[0].password) {
-                    console.log('password matches');
-                    res.sendStatus(200);
-                }
+        db.conn.query(`SELECT username, password FROM users WHERE username = '${username}';`,
+            (error, result) => {
+                if (error) res.send(error);
+                else if (!result.rows.length) res.status(400).send('no username found');
                 else {
-                    res.status(400).send('wrong password');
-                }
-           }
+                    if (password === result.rows[0].password) {
+                        res.status(200).send('password matches');
+                    }
+                    else {
+                        res.status(400).send('wrong password');
+                    }
+            }
         });
-
     }
 }
 
+//POST REQUEST FROM SIGNUP:
+//checks if username already exists in users table
+//if username already exists, don't create new user
 userController.checkIfUsernameExists = (req, res, next) => {
     let username = req.body.username;
-    db.conn.query(`SELECT username FROM users WHERE username = '${username}';`, (error, result) => {
-        if (result.rows.length) res.send('username exists already');
-        else next();
-    });
+    db.conn.query(`SELECT username FROM users WHERE username = '${username}';`,
+        (error, result) => {
+            if (result.rows.length) res.status(400).send('username exists already');
+            else next();
+        });
 }
 
+//POST REQUEST FROM SIGNUP (CONTINUED):
+//adds username to users table
 userController.addToUsersTable = (req, res, next) => {
-    //get body from req
-    //add that user to the users table
-    //create a new table for that user. will have to use query with a string
-    console.log('in addtouserstable');
     let username = req.body.username;
     let password = req.body.password;
     let healthlabel = '';
@@ -58,16 +57,30 @@ userController.addToUsersTable = (req, res, next) => {
     db.conn.query(`INSERT INTO users ("username", "password", "healthlabel")
                    VALUES ('${username}', '${password}', ARRAY['${healthlabel}']);`,
                    (error, result) => {
-                       if(error) console.log(error);
-                       else res.send('saved to database');
+                       if(error) res.send(error);
+                       else res.status(200).send('saved to database');
                    });
     next();
 }
 
+//POST REQUEST FROM SIGNUP (CONTINUED):
+//create table for each new user when they sign up
 userController.createUserTable = (req, res, next) => {
-    console.log('in createusertable');
     let username = req.body.username;
-    //db.conn.query()
-    //CREATE TABLE users ( _id SERIAL PRIMARY KEY NOT NULL, day TEXT, label TEXT, TEXT[] );
+    db.conn.query(`CREATE TABLE ${username} (
+                    _id SERIAL PRIMARY KEY NOT NULL,
+                    day TEXT,
+                    label TEXT, 
+                    image TEXT, 
+                    url TEXT, 
+                    yield INT, 
+                    "healthLabels" TEXT[], 
+                    ingredientLines TEXT[]
+                 );`,
+        (error, result) => {
+            if (error) res.status(400).send(error);
+            else res.status(200).send('created new table for new user');
+        });
 }
+
 module.exports = userController;
