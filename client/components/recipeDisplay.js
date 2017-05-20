@@ -21,6 +21,7 @@ handleRecipeChange(e) {
   }
 
 handleSearchSubmit() {
+  console.log('inside handleSearchSubmit');
     let base = 'https://api.edamam.com/search?';
     let q = `q=${this.state.q}`;
     let idAndKey = `&app_id=9c91d5f4&app_key=6f47ee6858565edebe96788f8743461a`;
@@ -29,7 +30,6 @@ handleSearchSubmit() {
     let url = base+q+idAndKey+range;
     axios.get(url)
     .then( (response) => {
-        console.log(response);
         //response.hits is an array of 5 recipe objects... or at least should be.. test?
         this.setState({recipes: response.hits});
     })
@@ -37,9 +37,9 @@ handleSearchSubmit() {
 
   render() {
 
-    let recipes = this.state.recipes.map(curr => {
+    let recipes = this.state.recipes.map(curr => 
         <Recipe recipedata={curr} username={this.props.username}/>
-    })
+    )
 
     console.log(this.state.recipes)
 
