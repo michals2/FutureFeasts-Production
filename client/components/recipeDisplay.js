@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Recipe from './recipe.js';
+import Profile from './profile.js';
 
 
 class RecipeDisplay extends Component {
@@ -33,29 +34,25 @@ class RecipeDisplay extends Component {
     axios.get(url)
 
       .then((response) => {
-        console.log('RESPONNSEEE', response.data.hits);
-
         //response.hits is an array of 5 recipe objects... or at least should be.. test?
         this.setState({ recipes: response.data.hits });
       })
   }
 
-
-
   render() {
-    console.log('RRRRR', this.state.recipes)
+    console.log('inside recipe display render function')
     let recipes = this.state.recipes.map((curr, i) => {
       return <Recipe recipedata={curr} username={this.props.username} key={i} />
     })
-    console.log('WWWEEEE', recipes)
 
     return (
       <div>
+        <h1>Search for a Recipe</h1>
         <form onSubmit={this.handleSearchSubmit}>
           <input placeholder="Search" type="text" name="q" value={this.state.q} onChange={this.handleRecipeChange} />
           <input type="submit" value="submit" />
-          <button>Profile</button>
         </form>
+        <button onClick={this.props.handleProfileClick}>Profile</button>
         {recipes}
       </div>
     )

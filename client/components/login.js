@@ -9,6 +9,7 @@ class Login extends Component {
   render() {
     return (
     <div>
+      <h1>Login Page</h1>
       <form onSubmit={this.props.handleLoginSubmit}>
         <input placeholder="Username" type="text" name="username" value={this.props.username} onChange={this.props.handleChange} />
         <input placeholder="Password" type="password" name="password" value={this.props.password} onChange={this.props.handleChange} />
