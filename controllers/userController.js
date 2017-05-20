@@ -2,6 +2,7 @@ const db = require('../models/database');
 
 const userController = {};
 // require user model here later
+// ^^^ didnt actually use sequilize. did it raw6969
 
 //POST REQUEST FROM LOGIN:
 //verify that username enters username and password
@@ -57,10 +58,9 @@ userController.addToUsersTable = (req, res, next) => {
     db.conn.query(`INSERT INTO users ("username", "password", "healthlabel")
                    VALUES ('${username}', '${password}', ARRAY['${healthlabel}']);`,
                    (error, result) => {
-                       if(error) res.send(error);
-                       else res.status(200).send('saved to database');
+                       if(error) res.status(400).send(error);
+                       else next();
                    });
-    next();
 }
 
 //POST REQUEST FROM SIGNUP (CONTINUED):
@@ -68,14 +68,14 @@ userController.addToUsersTable = (req, res, next) => {
 userController.createUserTable = (req, res, next) => {
     let username = req.body.username;
     db.conn.query(`CREATE TABLE ${username} (
-                    _id SERIAL PRIMARY KEY NOT NULL,
-                    day TEXT,
-                    label TEXT, 
-                    image TEXT, 
-                    url TEXT, 
-                    yield INT, 
+                    "_id" SERIAL PRIMARY KEY NOT NULL,
+                    "day" TEXT,
+                    "label" TEXT, 
+                    "image" TEXT, 
+                    "url" TEXT, 
+                    "yield" INT, 
                     "healthLabels" TEXT[], 
-                    ingredientLines TEXT[]
+                    "ingredientLines" TEXT[]
                  );`,
         (error, result) => {
             if (error) res.status(400).send(error);

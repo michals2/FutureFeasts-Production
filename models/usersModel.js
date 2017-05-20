@@ -1,8 +1,8 @@
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('futureMeals', 'postgres', 'pw', {
-    host: 'localhost',
-    dialect: 'postgres'
-});
+// const sequelize = new Sequelize('futureMeals', 'postgres', 'pw', {
+//     host: 'localhost',
+//     dialect: 'postgres'
+// });
 
-let User = sequelize
+// let User = sequelize
