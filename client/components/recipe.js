@@ -19,6 +19,7 @@ class Recipe extends Component {
     //ingredientLines is an array so wont display properly
     return (
       <div>
+
         <form onSubmit={this.saveToDay}>
           <select name="days">
             <option value="Monday">Monday</option>
