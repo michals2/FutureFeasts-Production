@@ -21,6 +21,7 @@ class RecipeDisplay extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+
   handleSearchSubmit(e) {
     e.preventDefault();
     let base = 'https://api.edamam.com/search?';
@@ -30,8 +31,10 @@ class RecipeDisplay extends Component {
     //let health = `&health=`;
     let url = base + q + idAndKey + range;
     axios.get(url)
+
       .then((response) => {
         console.log('RESPONNSEEE', response.data.hits);
+
         //response.hits is an array of 5 recipe objects... or at least should be.. test?
         this.setState({ recipes: response.data.hits });
       })

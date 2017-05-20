@@ -13,6 +13,6 @@ app.post('/signup', userController.checkIfUsernameExists,
                     userController.addToUsersTable, 
                     userController.createUserTable);
 app.post('/recipeDisplay', recipeController.saveRecipe);
-app.get('/profile', recipeController.getRecies);
+// app.get('/profile', recipeController.getRecipes);
 
 app.listen(3000);
