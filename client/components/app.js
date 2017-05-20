@@ -55,6 +55,12 @@ class App extends Component {
       });
   }
 
+  
+  // componentDidMount() {
+  //   axios.post(
+  // }
+
+
   render() {
     if (this.state[0] === true) {
       return (
