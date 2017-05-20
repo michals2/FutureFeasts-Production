@@ -28,7 +28,7 @@ class App extends Component {
 
 
   handleRecipeRender() {
-    this.setState({ 0: false, 1: false, 2: true, 3: false})
+    this.setState({ 0: false, 1: false, 2: true, 3: false })
   }
 
   handleChange(e) {
@@ -36,10 +36,15 @@ class App extends Component {
   }
 
   handleSignUpSubmit(e) {
+    console.log('inside handlesignupsubmit')
+    this.setState({ 0: false, 1: false, 2: true, 3: false })
     axios.post('/signup', { username: this.state.username, password: this.state.password })
       .then(response => {
         console.log('response', response)
         //response.data
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 
@@ -47,7 +52,7 @@ class App extends Component {
     e.preventDefault();
     axios.post('/login', { username: this.state.username, password: this.state.password })
       .then(response => {
-        this.setState({ 0: false, 1: false, 2: true, 3: false})
+        this.setState({ 0: false, 1: false, 2: true, 3: false })
         // this.handleRecipeRender();
       })
       .catch(err => {
@@ -55,13 +60,14 @@ class App extends Component {
       });
   }
 
-  
+
   // componentDidMount() {
   //   axios.post(
   // }
 
 
   render() {
+    console.log(this.state)
     if (this.state[0] === true) {
       return (
         <div>
