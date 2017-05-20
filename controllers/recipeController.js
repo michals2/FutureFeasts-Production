@@ -24,8 +24,6 @@ recipeController.saveRecipe = (req, res, next) => {
         db.conn.query(`INSERT INTO ${username} ("day", "label", "image", "url", "yield", "healthLabels", "ingredientLines")
                        VALUES ('${day}', '${label}', '${image}', '${url}', '${_yield}', ARRAY['${healthLabels}'], ARRAY['${ingredientLines}']);`,
                    (error, result) => {
-                    //    console.log(result)
-                       console.log('in te query callback');
                        if(error) res.status(400).send(error);
                        else res.status(200).send(`saved to table ${username}`);
                    });
