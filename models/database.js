@@ -2,7 +2,6 @@ const pg = require('pg');
 
 const db = {};
 
-
 const uri = 'postgres://@localhost/futuremeals';
 
 
