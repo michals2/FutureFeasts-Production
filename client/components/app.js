@@ -19,6 +19,8 @@ class App extends Component {
       1: false,
       2: false,
       3: false,
+      first_name: '',
+      last_name: '',
       username: '',
       password: '',
     }
