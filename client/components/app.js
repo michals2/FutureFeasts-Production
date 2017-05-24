@@ -19,6 +19,8 @@ class App extends Component {
       1: false,
       2: false,
       3: false,
+      first_name: 'Bobby',
+      last_name: 'Douché',
       username: '',
       password: '',
     }
@@ -40,10 +42,23 @@ class App extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  // handleSignUpSubmit(e) {
+  //   console.log('inside handlesignupsubmit')
+  //   this.setState({ 0: false, 1: false, 2: true, 3: false })
+  //   axios.post('/signup', { username: this.state.username, password: this.state.password })
+  //     .then(response => {
+  //       console.log('response', response)
+  //       //response.data
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
+
   handleSignUpSubmit(e) {
     console.log('inside handlesignupsubmit')
     this.setState({ 0: false, 1: false, 2: true, 3: false })
-    axios.post('/signup', { username: this.state.username, password: this.state.password })
+    axios.post('/signup', { first_name: this.state.first_name, last_name: this.state.last_name, username: this.state.username, password: this.state.password })
       .then(response => {
         console.log('response', response)
         //response.data
