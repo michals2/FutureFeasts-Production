@@ -1,6 +1,15 @@
 const db = require('../models/database');
-var bcrypt = require('bcryptjs');
-var SALT_WORK_FACTOR = 10;
+// const Sequelize = require('sequelize');
+// const connection = new Sequelize('user', 'root', 'password')
+
+let bcrypt = require('bcryptjs');
+let SALT_WORK_FACTOR = 10;
+// let User = connection.define('user',{
+//     first_name: Sequelize.STRING,
+//     last_name: Sequelize.STRING,
+//     username: Sequelize.STRING,
+//     password: Sequelize.STRING
+// })
 
 function hashPw(password){
   
@@ -30,7 +39,7 @@ userController.verifyUser = (req, res, next) => {
                 if (error){ console.log('1st'); res.send(400);}
                 else if (!result.rows.length){console.log('2nd'), res.status(400).send('no username found');}
                 else {
-                    console.log(bcrypt.compareSync(password, result.rows[0].password))
+                    // console.log(bcrypt.compareSync(password, result.rows[0].password))
                     if (bcrypt.compareSync(password, result.rows[0].password)) {
                         console.log('success')
                         res.status(200).send('password matches');
@@ -71,13 +80,21 @@ userController.addToUsersTable = (req, res, next) => {
     //         return res;
     //     },'');
     // }
-   
+    // connection.sync().then(()=>{
+    //     User.create({
+    //         first_name: '${first_name}',
+    //         last_name: '${last_name}',
+    //         username: '${username}',
+    //         password: '${password}'
+    //     })
+    // })
     db.conn.query(`INSERT INTO users ("first_name", "last_name", "username", "password")
                    VALUES ('${first_name}', '${last_name}', '${username}', '${password}');`,
                    (error, result) => {
                        if(error) res.status(400).send(error);
                        else next();
                    });
+    
 }
 
 //POST REQUEST FROM SIGNUP (CONTINUED):

@@ -13,7 +13,9 @@ class Login extends Component {
         <h1>Recipe Generator</h1>
       </div>
       <form onSubmit={this.props.handleLoginSubmit}>
-        <input placeholder="Username" type="text" name="username" value={this.props.username} onChange={this.props.handleChange} />
+        <label className='text' htmlFor='username'>Username: </label><br/>
+        <input placeholder="Username" type="text" name="username" value={this.props.username} onChange={this.props.handleChange} /><br/>
+        <label className='text' htmlFor='password'>Password: </label><br/>
         <input placeholder="Password" type="password" name="password" value={this.props.password} onChange={this.props.handleChange} />
         <input type="submit" value="Login"/>
       </form>
